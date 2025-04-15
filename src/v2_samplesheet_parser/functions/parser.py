@@ -1,19 +1,23 @@
 import logging
 
-from src.v2_samplesheet_parser.util import HEADER_REGEX_MATCH, pascal_case_to_snake_case
+from v2_samplesheet_parser.functions.util import HEADER_REGEX_MATCH, pascal_case_to_snake_case
 from src.v2_samplesheet_parser.models import SampleSheetModel
 logger = logging.getLogger(__name__)
 
 def parse_samplesheet(samplesheet: str) -> dict:
     """
-    Parse a samplesheet v2 into a JSON string
+    Parse an Illumina Sample Sheet v2 format string into a structured dictionary (JSON format). 
     https://help.connected.illumina.com/run-set-up/overview/sample-sheet-structure
     
+    This function takes a samplesheet in CSV format with section headers and converts it
+    into a validated Python dictionary with snake_case keys. It supports various section
+    types including Header, Reads, BCLConvert, Cloud, TSO500L, and TSO500S.
+    
     Args:
-        samplesheet (str): The samplesheet content to parse
+        samplesheet (csv): The samplesheet content to parse
         
     Returns:
-        str: JSON string of either validated model or raw parsed data
+        dict: A dictionary containing the parsed and validated samplesheet data (JSON format)
         
     Raises:
         ValueError: If CSV parsing fails
@@ -159,4 +163,3 @@ def parse_samplesheet(samplesheet: str) -> dict:
         # This is for CSV parsing errors - should be raised
         logger.error(f"CSV parsing error: {e}")
         raise ValueError(f"Failed to parse samplesheet: {str(e)}")
-

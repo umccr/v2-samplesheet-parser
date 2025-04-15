@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 
 from unittest import TestCase
-from src.v2_samplesheet_parser.parser import parse_samplesheet
-
+from v2_samplesheet_parser.functions.parser import parse_samplesheet
+from v2_samplesheet_parser.functions.reverter import revert_samplesheet_to_csv
 class TestSampleSheetParser(TestCase):
     def setUp(self):
         super().setUp()
@@ -67,3 +67,30 @@ class TestSampleSheetParser(TestCase):
                 print(f"Value mismatch at {current_path}:")
                 print(f"  Actual: {actual[key]}")
                 print(f"  Expected: {expected[key]}")
+                
+    def test_revert_standard_sheet_with_settings_to_csv(self):
+        """
+        python manage.py test sequence_run_manager_proc.tests.test_samplesheet_parser.TestSampleSheetParser.test_revert_samplesheet_to_csv
+        """
+        # read files from ./examples/standard-sheet-with-settings.json
+        with open(Path(__file__).parent / "examples/standard-sheet-with-settings.json", "r") as f:
+            samplesheet = json.load(f)
+        result = revert_samplesheet_to_csv(samplesheet)
+        # read expected result from ./examples/standard-sheet-with-settings.csv
+        with open(Path(__file__).parent / "examples/standard-sheet-with-settings.csv", "r") as f:
+            expected_result = f.read()
+        self.assertEqual(result, expected_result)
+        
+    def test_revert_tso500_cloud_settings_to_csv(self):
+        """
+        python manage.py test sequence_run_manager_proc.tests.test_samplesheet_parser.TestSampleSheetParser.test_revert_tso500_cloud_settings_to_csv
+        """
+        # read files from ./examples/tso500-cloud-settings.json
+        with open(Path(__file__).parent / "examples/tso500-cloud-settings.json", "r") as f:
+            samplesheet = json.load(f)
+        result = revert_samplesheet_to_csv(samplesheet)
+        # read expected result from ./examples/tso500-cloud-settings.csv
+        with open(Path(__file__).parent / "examples/tso500-cloud-settings.csv", "r") as f:
+            expected_result = f.read()
+        self.assertEqual(result, expected_result)
+        
