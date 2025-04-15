@@ -5,15 +5,15 @@ V2_SAMPLESHEET_PARSER_VERSION ?= 0.1.0
 
 # Run tests
 test:
-	@pip install .[test]
-	@PYTHONPATH=src/ pytest \
-      --cov src/v2_samplesheet_parser \
+	@pip install -e .[test]
+	@PYTHONPATH=tests/ pytest \
+      --cov tests/v2_samplesheet_parser \
       --capture=no | \
       tee coverage_report.txt
 
 # Run build
 build_package:
-	@pip install .[build]
+	@pip install -e .[build]
 	@python3 -m build
 
 # Install package
@@ -22,7 +22,7 @@ install:
 
 # Push to test pypi
 push_test_pypi:
-	@pip install .[deploy]
+	@pip install -e .[deploy]
 	@python3 -m twine upload --repository testpypi dist/* --verbose
 
 # Install from test pypi
@@ -35,7 +35,7 @@ install_test_pypi:
 
 # Install to pypi
 push_pypi:
-	@pip install .[deploy]
+	@pip install -e .[deploy]
 	@python3 -m twine upload --repository pypi dist/* --verbose
 
 # Install from pypi

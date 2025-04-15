@@ -27,6 +27,18 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
 
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+build = [
+    "build>=1.0.0",
+]
+deploy = [
+    "twine>=4.0.0",
+]
+
 [project.urls]
 Home = "https://github.com/umccr/v2-samplesheet-parser"
 Issue = "https://github.com/umccr/v2-samplesheet-parser/issues"

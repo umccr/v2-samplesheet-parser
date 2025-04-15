@@ -1,7 +1,7 @@
 import logging
 
 from v2_samplesheet_parser.functions.util import HEADER_REGEX_MATCH, pascal_case_to_snake_case
-from src.v2_samplesheet_parser.models import SampleSheetModel
+from v2_samplesheet_parser.models import SampleSheetModel
 logger = logging.getLogger(__name__)
 
 def parse_samplesheet(samplesheet: str) -> dict:

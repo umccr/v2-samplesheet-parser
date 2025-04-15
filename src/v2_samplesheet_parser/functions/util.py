@@ -21,6 +21,7 @@ def pascal_case_to_snake_case(s: str) -> str:
         Sample_Type -> sample_type
         Sample_Description -> sample_description
         BCLConvert_Settings -> bclconvert_settings
+        BCLConvert_Data -> bclconvert_data
         TSO500L_Settings -> tso500l_settings
         TSO500_Settings -> tso500_settings
         Read1Cycles -> read_1_cycles
@@ -65,45 +66,75 @@ def snake_case_to_pascal_case(s: str) -> str:
     Convert string from snake_case to PascalCase with special cases handling.
     
     Examples:
-        trim_umi -> TrimUmi
-        sample_id -> SampleId
-        cloud_workflow -> CloudWorkflow
-        index_id -> IndexId
-        i7_index_id -> I7IndexId
-        i5_index_id -> I5IndexId
-        sample_type -> SampleType
-        sample_description -> SampleDescription
-        bclconvert_settings -> BCLConvertSettings
-        tso500l_settings -> TSO500LSettings
-        tso500_settings -> TSO500Settings
+        trim_umi -> TrimUMI
+        sample_id -> Sample_ID
+        cloud_workflow -> Cloud_Workflow
+        index_id -> Index_ID
+        i7_index_id -> I7_Index_ID
+        i5_index_id -> I5_Index_ID
+        sample_type -> Sample_Type
+        sample_description -> Sample_Description
+        bclconvert_settings -> BCLConvert_Settings
+        bclconvert_data -> BCLConvert_Data
+        tso500l_settings -> TSO500L_Settings
+        tso500_settings -> TSO500_Settings
         read_1_cycles -> Read1Cycles
+        cloud_settings -> Cloud_Settings
+        cloud_data -> Cloud_Data
+        cloud_ts500l_settings -> Cloud_TS500L_Settings
+        cloud_ts500l_data -> Cloud_TS500L_Data
+        cloud_ts500_settings -> Cloud_TS500_Settings
+        cloud_tso500l_pipeline -> Cloud_TSO500L_Pipeline
     """
-    # Special case replacements (reverse of pascal_case_to_snake_case)
+    # Special case replacements
     replacements = {
         'bclconvert': 'BCLConvert',
         'tso500l': 'TSO500L',
-        'tso500': 'TSO500'
+        'tso500': 'TSO500',
+        'i7': 'I7',
+        'i5': 'I5'
     }
     
-    # Convert snake_case to PascalCase
-    result = ''.join(word.capitalize() for word in s.split('_'))
-    
-    # Apply special case replacements
-    for old, new in replacements.items():
-        if old in s:
-            result = result.replace(old.capitalize(), new)
-    
-    # Handle numeric cases
-    number_replacements = [
-        ('Read1', 'Read1'),
-        ('Read2', 'Read2'),
-        ('Index1', 'Index1'),
-        ('Index2', 'Index2')
+    # Handle special cases with underscores
+    underscore_cases = [
+        'sample_id', 'cloud_workflow', 'index_id', 'i7_index_id', 
+        'i5_index_id', 'sample_type', 'sample_description',
+        'bclconvert_settings', 'bclconvert_data', 'tso500l_settings', 'tso500_settings',
+        'cloud_settings', 'cloud_data', 'cloud_ts500l_settings', 'cloud_ts500l_data', 'cloud_ts500_settings',
+        'cloud_tso500l_pipeline'
     ]
     
-    for old, new in number_replacements:
-        if old in result:
-            result = result.replace(old, new)
+    if s in underscore_cases:
+        parts = s.split('_')
+        result = []
+        for part in parts:
+            if part in replacements:
+                result.append(replacements[part])
+            else:
+                result.append(part.capitalize())
+        return '_'.join(result)
     
-    return result
+    # Handle read cycles special case
+    if s == 'read_1_cycles':
+        return 'Read1Cycles'
+    if s == 'read_2_cycles':
+        return 'Read2Cycles'
+    if s == 'index_1_cycles':
+        return 'Index1Cycles'
+    if s == 'index_2_cycles':
+        return 'Index2Cycles'
+    
+    # Handle trim_umi special case
+    if s == 'trim_umi':
+        return 'TrimUMI'
+    
+    # Default conversion for other cases
+    parts = s.split('_')
+    result = []
+    for part in parts:
+        if part in replacements:
+            result.append(replacements[part])
+        else:
+            result.append(part.capitalize())
+    return ''.join(result)
 

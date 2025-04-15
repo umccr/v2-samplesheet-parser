@@ -4,7 +4,7 @@
 PyDantic Schemas for each of the classes
 """
 from typing import Optional
-from sequence_run_manager_proc.services.v2_samplesheet_parser.models.base_model import SampleSheetSectionBaseModel
+from v2_samplesheet_parser.models.base_model import SampleSheetSectionBaseModel
 
 class TSO500SSettingsModel(SampleSheetSectionBaseModel):
     """

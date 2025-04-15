@@ -3,7 +3,7 @@
 # Imports
 from typing import Optional, Dict
 from pydantic import BaseModel, RootModel
-from sequence_run_manager_proc.services.v2_samplesheet_parser.models.base_model import SampleSheetSectionBaseModel
+from v2_samplesheet_parser.models.base_model import SampleSheetSectionBaseModel
 
 class CloudSettingsBase(BaseModel):
     cloud_workflow: str
