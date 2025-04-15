@@ -1,6 +1,6 @@
 # v2-samplesheet-parser
 
-A lightweight Python tool to parse and validate Illumina Sample Sheet v2 format. This tool supports multiple formats including BCLConvert, Cloud, TSO500L, and TSO500S sections.
+A lightweight tool to parse and validate Illumina v2 Sample Sheet v2 from multiple format.
 
 ## Features
 
